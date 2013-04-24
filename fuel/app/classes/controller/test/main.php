@@ -49,7 +49,7 @@ class Controller_Test_Main extends Controller_Test
 		$path = Doctrine::getPath();
 	
 		$conn = Doctrine_Manager::connection();
-		$result = $conn->execute('SHOW TABLES;')->fetchAll();
+		$result = $conn->execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public';")->fetchAll();
 		$tables_found = null;
 		
 		foreach ($result as $table)
@@ -83,8 +83,15 @@ class Controller_Test_Main extends Controller_Test
 	
 	function action_doctrine_fetch()
 	{
-		$users = Doctrine::getTable("TblUsers")->findAll();
+    $query = Doctrine_Query::create()
+            ->from("Users u")
+            ->limit(10)
+            ->orderBy("u.first_name DESC, u.last_name DESC");
+
+//    die($query->getSqlQuery());
+
+		$users = $query->execute();
 		
-		return "and that is all it seems? right, ". $users->getFirst()->first_name;
+		return $this->disp("and that is all it seems? right, ". $users->getFirst()->first_name);
 	}
 }
