@@ -18,3 +18,4 @@ $password = $config["default"]["connection"]["password"];
 $dbh = new PDO($dsn, $user, $password);
 
 $conn = Doctrine_Manager::connection($dbh);
+

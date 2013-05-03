@@ -4,7 +4,6 @@ class Controller_Test_Main extends Controller_Test
 	function before()
 	{
 		parent::before();
-	
 		$this->module = "main";
 	}
 	
@@ -80,18 +79,73 @@ class Controller_Test_Main extends Controller_Test
 	
 		return $this->disp("attempting to setup and configure doctrine models!");
 	}
-	
+
+  function action_simple(){
+    $query = Doctrine_Query::create()
+            ->from("Users u")
+            ->limit(1);
+
+    $user = $query->execute();
+
+    Profiler::console($user->toArray());
+
+    echo $user->getFirst()->first_name;
+    exit;
+  }
+
+  function action_simple2(){
+    $query = Doctrine_Query::create()
+            ->from("UserMeta u")
+            ->limit(1);
+
+    $user = $query->execute();
+
+    return $this->disp($user->user_id);
+  }
+
 	function action_doctrine_fetch()
 	{
     $query = Doctrine_Query::create()
             ->from("Users u")
             ->limit(10)
-            ->orderBy("u.first_name DESC, u.last_name DESC");
+            ->orderBy("u.first_name DESC");
 
-//    die($query->getSqlQuery());
+    die($query->getSqlQuery());
 
 		$users = $query->execute();
 		
 		return $this->disp("and that is all it seems? right, ". $users->getFirst()->first_name);
 	}
+
+  function action_massive(){
+    set_time_limit(1024);
+    ini_set('memory_limit', '1000M');
+    $row_count = 500000;
+
+    $sess = date("YmdHis");
+
+    $statement = "INSERT INTO users(first_name, last_name, gender, dateofbirth) VALUES";
+
+    $substatement = "";
+
+    for($i = 0; $i < $row_count ; $i ++){
+      $formattedsess = "$sess-$i";
+      $first_name = "lannik-{$formattedsess}";
+      $last_name = "denmok-{$formattedsess}";
+      $gender = $i % 2 == 0 ? "male" : "female";
+
+      $dobint = mt_rand(1262055681,1262055681);
+      $dateofbirth = date("Y-m-d H:i:s",$dobint);
+      
+      $substatement .= "('{$first_name}', '{$last_name}', '{$gender}', '{$dateofbirth}'),";
+    }
+
+    $substatement = rtrim($substatement, ",");
+
+    $statement .= "{$substatement};";
+
+    Doctrine_Manager::connection()->exec($statement);
+
+    return Fuel\Core\Response::forge("i dunno, shuny but i inserted: {$row_count}rows");
+  }
 }

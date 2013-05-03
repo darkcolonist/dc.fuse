@@ -287,7 +287,6 @@ return array(
 		 */
 		'packages'  => array(
 			//'orm',
-      "doctrine"
 		),
 
 		/**
