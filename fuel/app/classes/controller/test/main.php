@@ -4,7 +4,8 @@ class Controller_Test_Main extends Controller_Test
 	function before()
 	{
 		parent::before();
-		$this->module = "main";
+
+    $this->module = "main";
 	}
 	
 	function action_blog_insert()
@@ -83,14 +84,21 @@ class Controller_Test_Main extends Controller_Test
   function action_simple(){
     $query = Doctrine_Query::create()
             ->from("Users u")
+            ->where("u.first_name = ?", "Christian Noel")
             ->limit(1);
 
     $user = $query->execute();
 
     Profiler::console($user->toArray());
+    Profiler::console($user->getFirst()->UserMeta->toArray());
+    Profiler::mark("compressing some data");
 
-    echo $user->getFirst()->first_name;
-    exit;
+    $somedata = gzcompress(json_encode($user->toArray()));
+
+    Profiler::mark_memory($somedata);
+    Profiler::console($somedata);
+
+    return $user->getFirst()->first_name;
   }
 
   function action_simple2(){

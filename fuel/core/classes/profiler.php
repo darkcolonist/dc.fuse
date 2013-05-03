@@ -59,11 +59,13 @@ class Profiler
 		}
 	}
 
-	public static function stop($text)
+	public static function stop($text, $elapsed = null)
 	{
 		if (static::$profiler)
 		{
-			static::$query['time'] = (static::$profiler->getMicroTime() - static::$query['time']) *1000;
+      static::$query['time'] = $elapsed == null 
+              ? (static::$profiler->getMicroTime() - static::$query['time']) *1000
+              : $elapsed;
 			array_push(static::$profiler->queries, static::$query);
 			static::$profiler->queryCount++;
 		}

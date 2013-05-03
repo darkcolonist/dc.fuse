@@ -1,14 +1,17 @@
 <?php
-abstract class Controller_Test extends Controller
+abstract class Controller_Test extends Controller_Main
 {
 	var $title = null;
 	var $module = null;
 
 	function before(){
+    $return = parent::before();
 		Config::load("application", true);
 	
 		$this->title = Config::get("application.title");
 		$this->module = "untitled";
+
+    return $return;
 	}
 	
 	function disp($data){
