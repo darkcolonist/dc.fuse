@@ -2,4 +2,4 @@ README
 php 5.3
 	fuelphp 1.5.3
 	doctrineorm 1.2
-postgresql 9.2.3-1
+postgresql or mysql
