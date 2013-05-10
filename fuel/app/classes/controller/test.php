@@ -16,6 +16,10 @@ abstract class Controller_Test extends Controller_Main
     
     return $return;
 	}
+
+  function reset_disp($template){
+		$this->disp = View::forge($template);
+  }
 	
 	function disp($data){
 		$this->disp->set("content", $data, false);
@@ -46,5 +50,13 @@ abstract class Controller_Test extends Controller_Main
     $append_js .= Fuel\Core\Asset::js($js);
 
     $this->disp->set_safe("js", $append_js);
+  }
+  
+  protected function add_js_scripts($script){
+    $append_script = isset($this->disp->js_scripts) ? $this->disp->js_scripts : "";
+
+    $append_script .= $script;
+
+    $this->disp->set_safe("js_scripts", $append_script);
   }
 }

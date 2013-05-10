@@ -40,7 +40,7 @@
 			<div id="logo"></div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span16">
 				<fieldset>
