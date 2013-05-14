@@ -11,6 +11,7 @@ return array(
 			'username'   => 'dev',
 			'password'   => 'dev',
 		),
-    'profiling' => true
+    'charset'     => null,
+    'profiling'   => true
 	),
 );

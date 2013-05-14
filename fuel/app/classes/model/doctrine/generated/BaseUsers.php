@@ -10,6 +10,15 @@
  * @property text $gender
  * @property integer $birthday
  * @property integer $id
+ * @property text $username
+ * @property text $password
+ * @property text $email
+ * @property text $profile_fields
+ * @property integer $group
+ * @property integer $last_login
+ * @property text $login_hash
+ * @property integer $created_at
+ * @property integer $updated_at
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -50,6 +59,60 @@ abstract class BaseUsers extends Doctrine_Record
              'notnull' => false,
              'primary' => true,
              'autoincrement' => true,
+             ));
+        $this->hasColumn('username', 'text', null, array(
+             'type' => 'text',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('password', 'text', null, array(
+             'type' => 'text',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('email', 'text', null, array(
+             'type' => 'text',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('profile_fields', 'text', null, array(
+             'type' => 'text',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('group', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('last_login', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('login_hash', 'text', null, array(
+             'type' => 'text',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('created_at', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('updated_at', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => false,
+             'primary' => false,
+             'autoincrement' => false,
              ));
     }
 

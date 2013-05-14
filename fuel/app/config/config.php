@@ -260,7 +260,8 @@ return array(
 		 * );
 		 */
     'packages'  => array(
-      "doctrine"
+      "doctrine",
+      "auth"
     ),
 
 		/**
