@@ -7,8 +7,7 @@
  * 
  * @property integer $id
  * @property integer $user_id
- * @property string $metadata
- * @property Users $Users
+ * @property text $meta
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -20,36 +19,29 @@ abstract class BaseUserMeta extends Doctrine_Record
     public function setTableDefinition()
     {
         $this->setTableName('user_meta');
-        $this->hasColumn('id', 'integer', 8, array(
+        $this->hasColumn('id', 'integer', null, array(
              'type' => 'integer',
-             'length' => 8,
-             'fixed' => false,
-             'unsigned' => false,
+             'notnull' => false,
              'primary' => true,
-             'sequence' => 'user_meta_id',
+             'autoincrement' => true,
              ));
-        $this->hasColumn('user_id', 'integer', 8, array(
+        $this->hasColumn('user_id', 'integer', null, array(
              'type' => 'integer',
-             'length' => 8,
-             'fixed' => false,
-             'unsigned' => false,
              'notnull' => false,
              'primary' => false,
+             'autoincrement' => false,
              ));
-        $this->hasColumn('metadata', 'string', null, array(
-             'type' => 'string',
-             'fixed' => false,
-             'unsigned' => false,
+        $this->hasColumn('meta', 'text', null, array(
+             'type' => 'text',
              'notnull' => false,
              'primary' => false,
+             'autoincrement' => false,
              ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Users', array(
-             'local' => 'user_id',
-             'foreign' => 'id'));
+        
     }
 }

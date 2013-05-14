@@ -7,6 +7,7 @@ return array(
 	'default' => array(
 		'connection'  => array(
 			'dsn'        => 'pgsql:host=localhost;dbname=dc_deploy',
+			'dsn'        => 'sqlite:'.APPPATH.'../../db/dc_fuse.db',
 			'username'   => 'dev',
 			'password'   => 'dev',
 		),
